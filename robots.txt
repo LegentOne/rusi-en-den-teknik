@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://LegentOne.github.io/rusi-en-den/sitemap.xml
