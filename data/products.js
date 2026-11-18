@@ -1,6 +1,6 @@
-/* Krijuar nga paneli i administrimit (Rusi En-Den Admin). Mos e ndryshoni me dorë. */
+/* Krijuar nga paneli i administrimit (Rusi En-Den Admin) për Rusi En-Den. Mos e ndryshoni me dorë. */
 window.RUSI_DATA = {
- "updatedAt": "2026-11-18T03:22:29.300Z",
+ "updatedAt": "2026-11-18T19:50:15.618Z",
  "settings": {
   "whatsappNumber": "355676661101",
   "phoneDisplay": "+355 67 666 1101",
@@ -27,7 +27,10 @@ window.RUSI_DATA = {
   "currency": "Lekë",
   "lowStockAt": 5,
   "mapQuery": "Rusi En-Den, Rruga Vllazërimi, Durrës",
-  "cfToken": ""
+  "cfToken": "",
+  "site": "main",
+  "otherUrl": "https://LegentOne.github.io/rusi-en-den-home/",
+  "hasOther": true
  },
  "categories": [
   {
@@ -120,7 +123,7 @@ window.RUSI_DATA = {
    "price": 350,
    "oldPrice": null,
    "unit": "copë",
-   "stock": 177,
+   "stock": 144,
    "trackStock": true,
    "specs": [
     [
