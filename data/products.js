@@ -1,6 +1,6 @@
-/* Krijuar nga paneli i administrimit (Rusi En-Den Admin) për Rusi En-Den. Mos e ndryshoni me dorë. */
+/* Krijuar nga paneli i administrimit (Rusi En-Den Admin) për Rusi En-Den Teknik. Mos e ndryshoni me dorë. */
 window.RUSI_DATA = {
- "updatedAt": "2026-11-18T19:50:15.618Z",
+ "updatedAt": "2026-11-18T20:17:02.858Z",
  "settings": {
   "whatsappNumber": "355676661101",
   "phoneDisplay": "+355 67 666 1101",
