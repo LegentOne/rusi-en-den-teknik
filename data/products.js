@@ -1,6 +1,6 @@
 /* Krijuar nga paneli i administrimit (Rusi En-Den Admin) për Rusi En-Den Teknik. Mos e ndryshoni me dorë. */
 window.RUSI_DATA = {
- "updatedAt": "2026-11-18T20:17:02.858Z",
+ "updatedAt": "2026-11-18T20:17:52.126Z",
  "settings": {
   "whatsappNumber": "355676661101",
   "phoneDisplay": "+355 67 666 1101",
@@ -8,7 +8,7 @@ window.RUSI_DATA = {
   "productMessage_en": "Hello, I'm interested in this product: ",
   "generalMessage": "Përshëndetje, kam një pyetje për produktet tuaja.",
   "generalMessage_en": "Hello, I have a question about your products.",
-  "siteUrl": "https://LegentOne.github.io/rusi-en-den/",
+  "siteUrl": "https://LegentOne.github.io/rusi-en-den-teknik/",
   "hours": [
    [
     "E Hënë – E Shtunë",
