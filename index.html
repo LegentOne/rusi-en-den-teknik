@@ -613,6 +613,27 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
 .btn-home:hover { box-shadow: 0 14px 30px -14px rgba(140,108,54,1); }
 .footer .home-link { color: #E2CA93; }
 @media (max-width: 980px) { .home-band .wrap { grid-template-columns: 1fr; gap: 18px; } .home-band .hb-logo { padding-right: 0; border-right: 0; } .btn-home { justify-self: start; } }
+
+/* ---------- main-page link, open now, reviews ---------- */
+.hub-link { display: inline-flex; align-items: center; gap: 6px; }
+.strip .hub-link svg { margin-right: 0; }
+.open-now { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.open-now i { width: 8px; height: 8px; border-radius: 50%; flex: none; background: #9AA0A6; box-shadow: 0 0 0 3px rgba(154,160,166,.2); }
+.open-now.is-open i { background: #2FBF71; box-shadow: 0 0 0 3px rgba(47,191,113,.22); }
+.open-now.is-soon i { background: #F5B700; box-shadow: 0 0 0 3px rgba(245,183,0,.24); }
+.open-now.is-closed i { background: #E5484D; box-shadow: 0 0 0 3px rgba(229,72,77,.22); }
+.open-now b { font-weight: 600; }
+.open-now .od { opacity: .78; }
+.strip .open-now .od { display: none; }
+.c-val .open-now { display: flex; margin: 0 0 12px; white-space: normal; }
+.c-val .open-now.is-open b { color: #2FBF71; }
+.c-val .open-now.is-closed b { color: #E5484D; }
+:root[data-mode="light"] .c-val .open-now.is-open b { color: #1D8A50; }
+:root[data-mode="light"] .c-val .open-now.is-closed b { color: #C62F35; }
+.footer .wrap > span:last-child { flex-basis: 100%; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08); }
+@media (max-width: 560px) { .strip .hub-link { display: none; } }
+.review-link .stars { color: #F5B700; letter-spacing: 2px; margin-right: 8px; text-decoration: none; display: inline-block; }
+@media (max-width: 1500px) { .strip .strip-tag { display: none; } }
 </style>
 </head>
 <body>
@@ -628,7 +649,9 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
 <div class="strip">
   <div class="wrap">
     <div class="strip-left">
-      <span data-t="strip.tag">Shitje me shumicë dhe pakicë</span>
+      <a class="hub-link js-hub js-hub-wrap" href="#" data-t-title="hub.link" title="Faqja kryesore"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg><span>Rusi En-Den</span></a>
+      <span class="strip-tag" data-t="strip.tag">Shitje me shumicë dhe pakicë</span>
+      <span class="open-now js-open" hidden></span>
       <a id="strip-map" href="#" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>Rruga Vllazërimi, Durrës</a>
     </div>
     <div class="strip-right">
@@ -777,9 +800,10 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
       <div class="contact-grid">
         <div class="contact-list">
           <div class="c-row"><span class="c-label" data-t="contact.address">Adresa</span><span class="c-val"><a id="c-map" href="#" target="_blank" rel="noopener" data-t="contact.addressText">Rruga Vllazërimi, Durrës, Shqipëri</a></span></div>
-          <div class="c-row"><span class="c-label" data-t="contact.hours">Orari</span><span class="c-val hours" id="c-hours"></span></div>
+          <div class="c-row"><span class="c-label" data-t="contact.hours">Orari</span><span class="c-val"><span class="open-now js-open" hidden></span><span class="hours" id="c-hours"></span></span></div>
           <div class="c-row"><span class="c-label" data-t="contact.phone">Telefon</span><span class="c-val" id="c-phone"></span></div>
           <div class="c-row"><span class="c-label" data-t="contact.social">Rrjetet sociale</span><span class="c-val"><a id="c-fb" href="#" target="_blank" rel="noopener">Facebook</a> &nbsp;·&nbsp; <a id="c-ig" href="#" target="_blank" rel="noopener">Instagram</a></span></div>
+          <div class="c-row js-review-wrap" hidden><span class="c-label" data-t="review.label">Vlerësimet</span><span class="c-val"><a class="review-link js-review" href="#" target="_blank" rel="noopener"><span class="stars" aria-hidden="true">★★★★★</span><span data-t="review.btn">Na vlerësoni në Google</span></a></span></div>
         </div>
         <div class="cta-box">
           <h3 data-t="cta.h">Keni një listë materialesh?</h3>
@@ -808,7 +832,7 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Rusi En-Den Teknik"><img src="assets/logo-teknik-reversed.svg" alt="Rusi En-Den Teknik" width="220" height="38"></a>
     <span>© <span id="year"></span> Rusi En-Den Teknik · Rruga Vllazërimi, Durrës</span>
-    <span><a class="home-link js-other" href="#">Rusi En-Den Shtëpi</a> &nbsp;·&nbsp; <a id="f-fb" href="#" target="_blank" rel="noopener">Facebook</a> &nbsp;·&nbsp; <a id="f-ig" href="#" target="_blank" rel="noopener">Instagram</a></span>
+    <span><span class="js-hub-wrap"><a class="js-hub" href="#" data-t="hub.link">Faqja kryesore</a> &nbsp;·&nbsp; </span><a class="home-link js-other" href="#">Rusi En-Den Shtëpi</a> &nbsp;·&nbsp; <a id="f-fb" href="#" target="_blank" rel="noopener">Facebook</a> &nbsp;·&nbsp; <a id="f-ig" href="#" target="_blank" rel="noopener">Instagram</a><span class="js-review-wrap" hidden> &nbsp;·&nbsp; <a class="js-review" href="#" target="_blank" rel="noopener" data-t="review.short">Vlerësoni në Google</a></span></span>
   </div>
 </footer>
 
@@ -993,6 +1017,162 @@ const SPEC_EN = {
   "Stili": "Style", "Drita": "Light", "Rregullimi": "Adjustment", "Pesha max": "Max load", "Mbushja": "Upholstery",
   "Programimi": "Programming", "Ushqimi": "Power supply", "Ngjyra e dritës": "Light colour", "Garancia": "Warranty",
 };
+/* =====================================================================
+   Open now (Albanian time), Google reviews, visitor stats (GoatCounter)
+   Shared by Teknik, Shtëpi and the main page. Texts can be overridden in T.
+   ===================================================================== */
+const EXTRA_T = {
+  sq: {
+    "open.now": "Hapur tani", "open.soon": "Mbyllet së shpejti", "open.closes": "mbyllet në {t}", "open.soonAt": "në {t}", "closed.now": "Mbyllur tani",
+    "open.today": "hap sot në {t}", "open.tomorrow": "hap nesër në {t}", "open.day": "hap {d} në {t}",
+    "days.acc": "të hënën|të martën|të mërkurën|të enjten|të premten|të shtunën|të dielën",
+    "review.label": "Vlerësimet", "review.btn": "Na vlerësoni në Google", "review.short": "Vlerësoni në Google",
+    "hub.link": "Faqja kryesore", "hub.strip": "Rusi En-Den · faqja kryesore",
+    "rooms.k": "Ose zgjidhni sipas dhomës", "rooms.clear": "Hiq filtrin e dhomës",
+  },
+  en: {
+    "open.now": "Open now", "open.soon": "Closing soon", "open.closes": "closes at {t}", "open.soonAt": "at {t}", "closed.now": "Closed now",
+    "open.today": "opens today at {t}", "open.tomorrow": "opens tomorrow at {t}", "open.day": "opens on {d} at {t}",
+    "days.acc": "Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday",
+    "review.label": "Reviews", "review.btn": "Rate us on Google", "review.short": "Rate us on Google",
+    "hub.link": "Main page", "hub.strip": "Rusi En-Den · main page",
+    "rooms.k": "Or shop by room", "rooms.clear": "Clear the room filter",
+  },
+};
+for (const l in EXTRA_T) T[l] = Object.assign({}, EXTRA_T[l], T[l] || {});
+
+/* ---- opening hours: "E Hënë – E Shtunë" + "08:00 – 19:00" -> a plan per weekday (0 = Monday) ---- */
+const DAY_WORDS = [["hene", "monday", "mon"], ["marte", "tuesday", "tue"], ["merkure", "wednesday", "wed"], ["enjte", "thursday", "thu"],
+  ["premte", "friday", "fri"], ["shtune", "saturday", "sat"], ["diel", "sunday", "sun"]];
+function dayIdx(x) {
+  const w = norm(x).replace(/^e\s+/, "").trim();
+  return w ? DAY_WORDS.findIndex(k => k.some(d => w === d || w.startsWith(d))) : -1;
+}
+function weekPlan(rows) {
+  const plan = [[], [], [], [], [], [], []];
+  (rows || []).forEach(r => {
+    const days = norm(r[0] || r[2] || "").trim();
+    let list = [];
+    if (/cdo dite|gjithe javen|every day|daily|7\/7/.test(days)) list = [0, 1, 2, 3, 4, 5, 6];
+    else days.split(/\s*,\s*|\s+(?:dhe|and)\s+|\s*&\s*/).forEach(part => {
+      const ends = part.split(/\s*[–—-]\s*/);
+      if (ends.length === 2 && dayIdx(ends[0]) >= 0 && dayIdx(ends[1]) >= 0) {
+        for (let i = dayIdx(ends[0]), n = 0; n < 7; n++, i = (i + 1) % 7) { list.push(i); if (i === dayIdx(ends[1])) break; }
+      } else { const i = dayIdx(part); if (i >= 0) list.push(i); }
+    });
+    const re = /(\d{1,2})[:.](\d{2})\s*[–—-]\s*(\d{1,2})[:.](\d{2})/g, ranges = [];
+    let m;
+    while ((m = re.exec(r[1] || ""))) { const a = +m[1] * 60 + +m[2]; let b = +m[3] * 60 + +m[4]; if (b <= a) b += 1440; ranges.push([a, b]); }
+    list.forEach(i => { plan[i] = ranges.slice(); });      // a later row wins, so "E Diel: Mbyllur" closes Sunday
+  });
+  return plan;
+}
+function tiranaNow() {
+  try {
+    const parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Tirane", weekday: "short", hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date());
+    const g = (k) => (parts.find(p => p.type === k) || {}).value;
+    const day = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].indexOf(g("weekday"));
+    if (day >= 0) return { day, min: (Number(g("hour")) % 24) * 60 + Number(g("minute")) };
+  } catch (e) { /* old browser: use the visitor's clock */ }
+  const d = new Date();
+  return { day: (d.getDay() + 6) % 7, min: d.getHours() * 60 + d.getMinutes() };
+}
+function openStatus(now = tiranaNow()) {
+  const plan = weekPlan(CONFIG.hours);
+  if (!plan.some(r => r.length)) return null;                 // no hours we can read: show nothing
+  const { day, min } = now;
+  const hhmm = (x) => String(Math.floor(x / 60) % 24).padStart(2, "0") + ":" + String(x % 60).padStart(2, "0");
+  const late = plan[(day + 6) % 7].find(([, b]) => b > 1440 && min < b - 1440);   // still open after midnight
+  const cur = late ? [0, late[1] - 1440] : plan[day].find(([a, b]) => min >= a && min < b);
+  if (cur) {
+    const soon = cur[1] - min <= 30;
+    return { open: true, soon, text: t(soon ? "open.soon" : "open.now"), detail: t(soon ? "open.soonAt" : "open.closes").replace("{t}", hhmm(cur[1])) };
+  }
+  for (let k = 0; k < 8; k++) {
+    const d = (day + k) % 7;
+    const next = plan[d].filter(([a]) => k > 0 || a > min).sort((x, y) => x[0] - y[0])[0];
+    if (!next) continue;
+    const tt = hhmm(next[0]);
+    const detail = k === 0 ? t("open.today").replace("{t}", tt) : k === 1 ? t("open.tomorrow").replace("{t}", tt)
+      : t("open.day").replace("{d}", t("days.acc").split("|")[d]).replace("{t}", tt);
+    return { open: false, soon: false, text: t("closed.now"), detail };
+  }
+  return { open: false, soon: false, text: t("closed.now"), detail: "" };
+}
+function renderOpen() {
+  const st = openStatus();
+  $$(".js-open").forEach(el => {
+    el.hidden = !st;
+    if (!st) return;
+    el.classList.remove("is-open", "is-soon", "is-closed");
+    el.classList.add(st.open ? (st.soon ? "is-soon" : "is-open") : "is-closed");
+    el.innerHTML = `<i aria-hidden="true"></i><b>${esc(st.text)}</b>${st.detail ? `<span class="od"> · ${esc(st.detail)}</span>` : ""}`;
+  });
+}
+setInterval(renderOpen, 60000);
+
+/* ---- "Rate us on Google" (link set in the admin) ---- */
+function setupReview() {
+  const u = String(CONFIG.googleReviewUrl || "").trim();
+  const ok = /^https:\/\//i.test(u);
+  $$(".js-review").forEach(a => { if (ok) a.href = u; });
+  $$(".js-review-wrap").forEach(el => { el.hidden = !ok; });
+}
+
+/* ---- visitor stats: GoatCounter (free, no cookies). Counts page views, opened products, WhatsApp clicks. ---- */
+const GOAT = String(CONFIG.goatCode || "").trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\.goatcounter\.com.*$/, "").replace(/[^a-z0-9-]/g, "");
+const GOAT_Q = [];
+function loadGoat() {
+  if (!GOAT || !/^https?:$/.test(location.protocol)) return;
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = "https://gc.zgo.at/count.js";
+  s.setAttribute("data-goatcounter", `https://${GOAT}.goatcounter.com/count`);
+  s.onload = () => { setTimeout(() => GOAT_Q.splice(0).forEach(x => goat(...x)), 300); };
+  document.head.appendChild(s);
+}
+function goat(path, title, event) {
+  if (!GOAT || !/^https?:$/.test(location.protocol)) return;
+  try {
+    if (window.goatcounter && window.goatcounter.count) window.goatcounter.count({ path, title, event: !!event });
+    else if (GOAT_Q.length < 20) GOAT_Q.push([path, title, event]);
+  } catch (e) { /* ignore */ }
+}
+const goatDir = () => location.pathname.replace(/[^/]*$/, "");
+
+/* ---- link to the main page (Rusi En-Den: all shops) ---- */
+function hubHref() {
+  if (/^https?:$/.test(location.protocol)) return CONFIG.hubUrl || "";
+  return "../Rusi En-Den Main Web/index.html";          // on this computer: the folder next to this one
+}
+function setupHub() {
+  const u = hubHref();
+  $$(".js-hub").forEach(a => { if (u) a.href = u; });
+  $$(".js-hub-wrap").forEach(el => { el.hidden = !u; });
+}
+/* ---- rooms (Shtëpi): products can be tagged with the rooms they suit ---- */
+const ROOMS = [["kuzhina", "Kuzhina", "Kitchen", "pot"], ["banjo", "Banjo", "Bathroom", "bathtub"], ["gjumi", "Dhoma e gjumit", "Bedroom", "bed"],
+  ["ndenja", "Dhoma e ndenjes", "Living room", "sofa"], ["hyrja", "Hyrja", "Hallway", "door"], ["jashte", "Ballkon & oborr", "Balcony & garden", "tree"]];
+const roomById = (id) => ROOMS.find(r => r[0] === id);
+const roomName = (id) => { const r = roomById(id); return r ? (isEn() ? r[2] : r[1]) : ""; };
+function renderRooms() {
+  const box = $("#rooms"); if (!box) return;
+  const list = ROOMS.map(r => ({ r, n: PRODUCTS.filter(p => (p.rooms || []).includes(r[0])).length })).filter(x => x.n);
+  box.hidden = !list.length;
+  $("#rooms-row").innerHTML = list.map(({ r, n }) => `<button class="room" type="button" data-room-pick="${r[0]}" aria-pressed="${state.room === r[0]}"><span class="room-ico">${icon(r[3])}</span><span class="room-name">${esc(roomName(r[0]))}</span><span class="room-n">${n} ${t(n === 1 ? "count.one" : "count.many")}</span></button>`).join("");
+}
+function setRoom(id) { state.room = id; resetLimit(); renderRooms(); renderChips(); renderGrid(); }
+/* ---- visitor stats: WhatsApp clicks ---- */
+document.addEventListener("click", e => {
+  const a = e.target.closest('a[href^="https://wa.me/"]'); if (!a) return;
+  const site = CONFIG.site === "home" ? "shtepi" : "teknik";
+  let p = null;
+  if (a.closest("#modal") && current) p = current.p;
+  else if (a.closest(".card")) { const o = a.closest(".card").querySelector(".card-open"); p = o ? BY_ID[(o.getAttribute("href") || "").replace("#produkt-", "")] : null; }
+  if (p) goat(`whatsapp-${site}/${p.id}`, "WhatsApp: " + p.name, true);
+  else if (a.closest("#ldrawer")) goat(`whatsapp-${site}/lista`, "WhatsApp: lista", true);
+  else goat(`whatsapp-${site}`, "WhatsApp", true);
+});
 let LANG = "sq";
 try { if (localStorage.getItem("rusi-lang") === "en") LANG = "en"; } catch (e) { /* ignore */ }
 const t = (k) => (T[LANG] && T[LANG][k]) || T.sq[k] || k;
@@ -1003,25 +1183,25 @@ const isEn = () => LANG === "en";
    ===================================================================== */
 const ICONS = {
   bolt: '<path d="M36 6L16 36h14l-4 22 22-32H34z"/>',
-  cable: '<circle cx="28" cy="32" r="18"/><circle cx="28" cy="32" r="10"/><circle cx="28" cy="32" r="3"/><path d="M46 32c8 0 10 6 10 14v8"/>',
+  cable: '<circle cx="26" cy="27" r="19"/><circle cx="26" cy="27" r="10"/><circle class="f" cx="26" cy="27" r="3"/><path d="M45 27v18"/><rect x="40" y="45" width="10" height="8" rx="2"/><path d="M43 53v5M47 53v5"/>',
   switch: '<rect x="12" y="12" width="40" height="40" rx="6"/><rect x="23" y="20" width="18" height="24" rx="3"/><path d="M23 32h18"/>',
   socket: '<rect x="10" y="10" width="44" height="44" rx="9"/><circle cx="32" cy="32" r="13"/><circle class="f" cx="27" cy="32" r="2.2"/><circle class="f" cx="37" cy="32" r="2.2"/><path d="M32 19v4M32 41v4"/>',
   breaker: '<rect x="20" y="6" width="24" height="52" rx="3"/><rect x="26" y="22" width="12" height="18" rx="2"/><path d="M29 27h6"/><circle cx="32" cy="13" r="2"/><circle cx="32" cy="51" r="2"/><path d="M14 31h6M44 31h6"/>',
   panel: '<rect x="8" y="10" width="48" height="44" rx="4"/><path d="M8 24h48"/><rect x="14" y="30" width="6" height="16" rx="1"/><rect x="23" y="30" width="6" height="16" rx="1"/><rect x="32" y="30" width="6" height="16" rx="1"/><rect x="41" y="30" width="9" height="16" rx="1"/>',
   strip: '<rect x="4" y="24" width="44" height="16" rx="4"/><circle cx="13" cy="32" r="3"/><circle cx="23" cy="32" r="3"/><circle cx="33" cy="32" r="3"/><rect x="40" y="29" width="4" height="6" rx="1"/><path d="M48 32h6c3 0 5 2 5 5v14"/>',
-  pipe: '<path d="M6 25h52M6 39h52"/><path d="M14 21v22M50 21v22M10 21v22M54 21v22"/>',
-  valve: '<path d="M4 34h16M44 34h16M4 46h16M44 46h16M20 30v20M44 30v20"/><circle cx="32" cy="40" r="11"/><path d="M32 29v-9"/><path d="M20 16h24"/><circle class="f" cx="32" cy="40" r="3"/>',
-  fitting: '<path d="M8 16h24a18 18 0 0 1 18 18v24"/><path d="M8 30h22a6 6 0 0 1 6 6v22"/><path d="M14 12v22M32 50h22"/>',
-  pump: '<circle cx="24" cy="34" r="14"/><circle cx="24" cy="34" r="5"/><path d="M38 26h16v16H38"/><path d="M44 26v16M49 26v16"/><path d="M10 54h46"/><path d="M24 20v-8h10"/>',
-  faucet: '<path d="M10 56h26"/><path d="M18 56V28"/><path d="M18 30h18a8 8 0 0 1 8 8v4"/><path d="M12 20h14M19 20v8"/><circle class="f" cx="44" cy="50" r="2.4"/>',
-  shower: '<path d="M12 58V18a8 8 0 0 1 8-8h12a6 6 0 0 1 6 6v6"/><path d="M28 22h20l-4 6H32z"/><path d="M32 34v4M38 34v6M44 34v4M35 44v4M41 44v4"/>',
+  pipe: '<path d="M8 24h16M40 24h14M8 40h16M40 40h14"/><path d="M8 24v16"/><ellipse cx="54" cy="32" rx="4" ry="8"/><rect x="24" y="19" width="16" height="26" rx="3"/>',
+  valve: '<rect x="5" y="30" width="10" height="16" rx="2"/><rect x="49" y="30" width="10" height="16" rx="2"/><path d="M15 33h7M42 33h7M15 43h7M42 43h7"/><circle cx="32" cy="38" r="10"/><path d="M32 28v-7"/><rect x="26" y="14" width="30" height="7" rx="3.5"/>',
+  fitting: '<path d="M16 20h10a22 22 0 0 1 22 22v8M16 36h10a6 6 0 0 1 6 6v8"/><rect x="6" y="17" width="10" height="22" rx="2"/><rect x="29" y="50" width="22" height="9" rx="2"/>',
+  pump: '<circle cx="19" cy="34" r="12"/><circle class="f" cx="19" cy="34" r="3"/><rect x="31" y="25" width="25" height="19" rx="3"/><path d="M40 25v19M48 25v19"/><path d="M19 22V12h9"/><path d="M8 54h50M19 46v8M44 44v10"/>',
+  faucet: '<path d="M12 56h24"/><path d="M18 56V31a6 6 0 0 1 12 0v25"/><path d="M30 34h14a8 8 0 0 1 8 8v3"/><path d="M24 25v-6l13-6"/><circle class="f" cx="52" cy="52" r="2.4"/>',
+  shower: '<path d="M12 58V20a10 10 0 0 1 10-10h10a8 8 0 0 1 8 8v4"/><path d="M28 22h24l-3 6H31z"/><path d="M33 34l-1 4M40 34v5M47 34l1 4M35 44l-1 4M45 44l1 4M40 45v5"/>',
   toilet: '<rect x="12" y="6" width="22" height="16" rx="3"/><path d="M8 28h44c0 9-7 15-16 15h-6v13H18V42c-6-3-10-8-10-14z"/><path d="M14 56h20"/>',
   sink: '<path d="M6 26h52v4c0 10-11 16-26 16S6 40 6 30z"/><path d="M26 46v12h12V46"/><path d="M32 26V14h9"/>',
   bulb: '<path d="M32 6a17 17 0 0 0-10 30.6c2 1.8 3 4 3 6.4v3h14v-3c0-2.4 1-4.6 3-6.4A17 17 0 0 0 32 6z"/><path d="M25 52h14M27 58h10"/><path d="M28 34l4-6 4 6"/>',
   ledpanel: '<rect x="8" y="8" width="48" height="48" rx="3"/><rect x="15" y="15" width="34" height="34" rx="1"/><path d="M32 15v34M15 32h34" opacity=".45"/>',
-  flood: '<rect x="8" y="12" width="34" height="26" rx="4"/><rect x="13" y="17" width="24" height="16" rx="1"/><path d="M25 38v8M14 54h22M25 46v8"/><path d="M48 18l9-4M48 25h10M48 32l9 4"/>',
-  ledstrip: '<circle cx="16" cy="24" r="12"/><circle cx="16" cy="24" r="4"/><path d="M16 36v12h44"/><rect x="24" y="44" width="5" height="8" rx="1"/><rect x="35" y="44" width="5" height="8" rx="1"/><rect x="46" y="44" width="5" height="8" rx="1"/>',
-  ceiling: '<path d="M6 16h52"/><path d="M14 18c0 12 8 18 18 18s18-6 18-18"/><path d="M32 44v10M20 42l-5 8M44 42l5 8"/>',
+  flood: '<rect x="8" y="10" width="38" height="28" rx="4"/><rect x="14" y="16" width="26" height="16" rx="1.5"/><path d="M14 38v4a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4v-4"/><path d="M27 46v9M19 56h16"/><path d="M52 15l6-3M52 24h7M52 33l6 3"/>',
+  ledstrip: '<circle cx="20" cy="19" r="13"/><circle cx="20" cy="19" r="4"/><path d="M20 32v10"/><rect x="7" y="42" width="51" height="13" rx="3"/><rect class="f" x="13" y="46.5" width="5" height="4" rx="1"/><rect class="f" x="25" y="46.5" width="5" height="4" rx="1"/><rect class="f" x="37" y="46.5" width="5" height="4" rx="1"/><rect class="f" x="49" y="46.5" width="5" height="4" rx="1"/>',
+  ceiling: '<path d="M8 10h48M32 10v6"/><path d="M12 16h40a20 15 0 0 1-40 0z"/><path d="M12 22h40" opacity=".45"/><path d="M32 38v9M20 36l-5 7M44 36l5 7"/>',
   ac: '<rect x="4" y="14" width="56" height="24" rx="5"/><path d="M10 30h44"/><circle class="f" cx="52" cy="21" r="1.8"/><path d="M16 44c3 4 3 8 0 12M32 44c3 4 3 8 0 12M48 44c3 4 3 8 0 12"/>',
   radiator: '<rect x="9" y="12" width="9" height="38" rx="4.5"/><rect x="20" y="12" width="9" height="38" rx="4.5"/><rect x="31" y="12" width="9" height="38" rx="4.5"/><rect x="42" y="12" width="9" height="38" rx="4.5"/><path d="M4 20h5M51 20h7M14 50v6M46 50v6"/>',
   boiler: '<rect x="18" y="4" width="28" height="52" rx="13"/><circle cx="32" cy="22" r="6"/><path d="M32 22l3-3"/><path d="M26 56v5M38 56v5"/><path d="M24 40h16"/>',
@@ -1029,14 +1209,18 @@ const ICONS = {
   thermostat: '<rect x="10" y="10" width="44" height="44" rx="10"/><circle cx="32" cy="32" r="14"/><path d="M24 38a10 10 0 1 1 16 0"/><path d="M32 32l5-6"/><circle class="f" cx="32" cy="32" r="2.2"/>',
   sofa: '<path d="M12 30v-7a6 6 0 0 1 6-6h28a6 6 0 0 1 6 6v7"/><path d="M6 33a4 4 0 0 1 8 0v7h36v-7a4 4 0 0 1 8 0v13H6z"/><path d="M14 40h36M32 17v23"/><path d="M10 46v5M54 46v5"/>',
   armchair: '<path d="M17 31V17a6 6 0 0 1 6-6h18a6 6 0 0 1 6 6v14"/><path d="M11 35a4 4 0 0 1 8 0v6h26v-6a4 4 0 0 1 8 0v12H11z"/><path d="M19 41h26"/><path d="M15 47l-2 7M49 47l2 7"/>',
-  vanity: '<path d="M12 22c0-3 9-5 20-5s20 2 20 5"/><path d="M32 17v-6h6"/><rect x="8" y="22" width="48" height="30" rx="2"/><path d="M32 22v30M8 30h48"/><path d="M26 40h2M36 40h2"/><path d="M12 52v4M52 52v4"/>',
+  vanity: '<path d="M18 13h28c0 5-6 8-14 8s-14-3-14-8z"/><path d="M40 13V7h-7"/><rect x="6" y="21" width="52" height="5" rx="1.5"/><rect x="9" y="26" width="46" height="26" rx="2"/><path d="M32 26v26M28 36v5M36 36v5M13 52v5M51 52v5"/>',
   mirror: '<path d="M16 56V22a16 16 0 0 1 32 0v34z"/><path d="M21 51V22a11 11 0 0 1 22 0v29z"/><path d="M27 24l7-7M27 32l13-13" opacity=".5"/>',
-  chandelier: '<path d="M32 4v8"/><circle cx="32" cy="14" r="2"/><path d="M32 16v14"/><path d="M8 26c0 7 11 11 24 11s24-4 24-11"/><path d="M8 26v-5M20 33v-7M32 37v-7M44 33v-7M56 26v-5"/><path d="M8 17.5c-1.2-1.4-1.2-3 0-4.5 1.2 1.5 1.2 3.1 0 4.5zM20 22.5c-1.2-1.4-1.2-3 0-4.5 1.2 1.5 1.2 3.1 0 4.5zM32 26.5c-1.2-1.4-1.2-3 0-4.5 1.2 1.5 1.2 3.1 0 4.5zM44 22.5c-1.2-1.4-1.2-3 0-4.5 1.2 1.5 1.2 3.1 0 4.5zM56 17.5c-1.2-1.4-1.2-3 0-4.5 1.2 1.5 1.2 3.1 0 4.5z"/><path d="M28 40l4 5 4-5M32 45v5"/><circle cx="32" cy="53" r="2.5"/>',
+  chandelier: '<path d="M32 4v12"/><circle cx="32" cy="18" r="2.5"/><path d="M8 27c2 7 12 11 24 11s22-4 24-11"/><path d="M32 20.5V38M8 27v-6M20 34v-7M44 34v-7M56 27v-6"/><path class="f" d="M8 13c-2.4 2.6-2.4 4.6 0 5.8 2.4-1.2 2.4-3.2 0-5.8zM20 19c-2.4 2.6-2.4 4.6 0 5.8 2.4-1.2 2.4-3.2 0-5.8zM44 19c-2.4 2.6-2.4 4.6 0 5.8 2.4-1.2 2.4-3.2 0-5.8zM56 13c-2.4 2.6-2.4 4.6 0 5.8 2.4-1.2 2.4-3.2 0-5.8z"/><path d="M32 38v6"/><path d="M32 44l-3 4 3 5 3-5z"/>',
   pendant: '<path d="M32 4v16"/><path d="M28 20h8l1.5 4h-11z"/><path d="M12 46a20 20 0 0 1 40 0z"/><path d="M26 50a6 6 0 0 0 12 0"/>',
-  sconce: '<rect x="8" y="20" width="7" height="24" rx="2"/><path d="M15 32h12"/><path d="M27 32a3 3 0 0 0 3 3h0"/><path d="M26 14h22l-4 18H30z"/><path d="M33 40h8M35 45h4"/>',
-  lamp: '<path d="M20 8h24l8 22H12z"/><path d="M32 30v22"/><path d="M20 56h24"/><path d="M38 30v6"/>',
+  sconce: '<rect x="8" y="22" width="8" height="28" rx="2"/><path d="M16 38h12a6 6 0 0 0 6-6v-6"/><path d="M22 8h24l4 18H18z"/>',
+  lamp: '<path d="M20 8h24l8 22H12z"/><path d="M32 30v20"/><path d="M22 56c0-4 4-6 10-6s10 2 10 6z"/><path d="M40 30v7"/><circle class="f" cx="40" cy="38" r="1.8"/>',
   bathtub: '<path d="M4 30h56"/><path d="M8 30v5c0 9 7 15 16 15h16c9 0 16-6 16-15v-5"/><path d="M17 50l-3 6M47 50l3 6"/><path d="M14 30V15a6 6 0 0 1 12 0"/><path d="M22 19h8"/>',
-  table: '<path d="M6 22h52"/><path d="M6 26h52"/><path d="M12 26v30M52 26v30M12 40h40"/>',
+  table: '<rect x="6" y="18" width="52" height="6" rx="1.5"/><path d="M12 24v32M52 24v32M12 44h40"/>',
+  bed: '<path d="M8 12v44M56 34v22"/><path d="M8 34h44a4 4 0 0 1 4 4v8H8"/><rect x="13" y="24" width="15" height="10" rx="3"/><path d="M8 50h48"/>',
+  pot: '<path d="M12 26h40v17a11 11 0 0 1-11 11H23a11 11 0 0 1-11-11z"/><path d="M5 30h7M52 30h7"/><path d="M22 26v-4h20v4"/><path d="M27 14c0-3 3-3 3-6M35 14c0-3 3-3 3-6"/>',
+  tree: '<path d="M32 6a13 13 0 0 1 12.5 16.5A10.5 10.5 0 0 1 41 43H23a10.5 10.5 0 0 1-3.5-20.5A13 13 0 0 1 32 6z"/><path d="M32 30v28M32 38l-6-5M32 36l7-6M22 58h20"/>',
+  door: '<rect x="14" y="6" width="36" height="52" rx="2"/><path d="M8 58h48"/><circle class="f" cx="42" cy="34" r="2.5"/><rect x="20" y="12" width="24" height="16" rx="1" opacity=".5"/>',
 };
 const icon = (k, cls = "") => `<svg class="ico ${cls}" viewBox="0 0 64 64" aria-hidden="true">${ICONS[k] || ICONS.bolt}</svg>`;
 const waIcon = '<svg aria-hidden="true"><use href="#i-wa"/></svg>';
@@ -1050,7 +1234,7 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const CAT = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
 const BY_ID = Object.fromEntries(PRODUCTS.map(p => [p.id, p]));
 const PAGE = 24;   // products shown at first; "Show more" adds this many each time
-const state = { cat: "all", special: "", brand: "", q: "", sort: "rec", limit: PAGE };
+const state = { cat: "all", special: "", brand: "", q: "", sort: "rec", limit: PAGE, room: "" };
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch]));
 const norm = (s) => String(s ?? "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/×/g, "x").replace(/\s+/g, " ");
 const hasValue = (v) => v !== null && v !== undefined && v !== "";
@@ -1252,6 +1436,7 @@ function renderChips() {
   const cats = [{ id: "all", name: t("chip.all"), n: PRODUCTS.length },
     ...CATEGORIES.map(c => ({ id: c.id, name: catName(c.id), n: PRODUCTS.filter(p => p.cat === c.id).length }))];
   let html = cats.map(c => `<button class="chip" data-cat="${c.id}" aria-pressed="${state.cat === c.id}">${esc(c.name)} <span class="n">${c.n}</span></button>`).join("");
+  if (state.room) html = `<button class="chip special room-chip" data-room="${esc(state.room)}" aria-pressed="true" title="${esc(t("rooms.clear"))}">${esc(roomName(state.room))} <span class="n" aria-hidden="true">✕</span></button>` + html;
   if (nOff || nNew) html += `<span class="chip-sep" aria-hidden="true"></span>`;
   if (nOff) html += `<button class="chip special" data-special="offers" aria-pressed="${state.special === "offers"}">${t("chip.offers")} <span class="n">${nOff}</span></button>`;
   if (nNew) html += `<button class="chip special" data-special="new" aria-pressed="${state.special === "new"}">${t("chip.new")} <span class="n">${nNew}</span></button>`;
@@ -1291,6 +1476,7 @@ function filtered() {
   const words = norm(state.q.trim()).split(" ").filter(Boolean);
   return PRODUCTS.filter(p =>
     (state.cat === "all" || p.cat === state.cat) &&
+    (!state.room || (p.rooms || []).includes(state.room)) &&
     (!state.brand || (p.brand || "").trim() === state.brand) &&
     (state.special !== "offers" || isOffer(p)) &&
     (state.special !== "new" || isNew(p)) &&
@@ -1306,6 +1492,7 @@ function renderSort() {
 function renderGrid() {
   const list = sortList(filtered());
   const bits = [`${list.length} ${list.length === 1 ? t("count.one") : t("count.many")}`];
+  if (state.room) bits.push(roomName(state.room));
   if (state.cat !== "all") bits.push(catName(state.cat));
   if (state.special) bits.push(t(state.special === "offers" ? "chip.offers" : "chip.new"));
   if (state.brand) bits.push(state.brand);
@@ -1350,6 +1537,7 @@ function openModal(p) {
   m.querySelector(".modal-panel").scrollTop = 0;
   m.querySelector(".modal-panel").focus();
   if (window.cfTrack) window.cfTrack(p);
+  goat(goatDir() + "produkt/" + p.id, p.name);
 }
 function renderModal() {
   const { p, v } = current;
@@ -1423,6 +1611,7 @@ function route() {
   }
   closeModal(false);
   if (h === "lista") openList();
+  if (h.startsWith("dhoma-") && roomById(h.slice(6))) { setRoom(h.slice(6)); $("#katalogu").scrollIntoView(); }
   if (h.startsWith("kategoria-") && CAT[h.slice(10)]) {
     setCat(h.slice(10));
     $("#katalogu").scrollIntoView();
@@ -1447,11 +1636,12 @@ function applyLang() {
   $$("[data-t-html]").forEach(el => el.innerHTML = t(el.dataset.tHtml));
   $$("[data-t-ph]").forEach(el => el.placeholder = t(el.dataset.tPh));
   $$("[data-t-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.tAria)));
+  $$("[data-t-title]").forEach(el => el.title = t(el.dataset.tTitle));
   $("#lang-btn").textContent = isEn() ? "SQ" : "EN";
   $("#lang-btn").setAttribute("aria-label", t("lang.other"));
   syncModeLabel();
   document.querySelectorAll(".js-wa-general").forEach(a => a.href = waLink(generalMsg()));
-  renderStatic();
+  renderStatic(); renderOpen(); renderRooms();
   renderBoard(); renderBrands(); renderSort(); renderChips(); renderGrid(); renderOffers();
   if (current) renderModal();
   if ($("#ldrawer").classList.contains("open")) renderList();
@@ -1508,6 +1698,7 @@ function init() {
   // catalogue controls
   $("#chips").addEventListener("click", e => {
     const b = e.target.closest(".chip"); if (!b) return;
+    if (b.dataset.room !== undefined) { setRoom(""); return; }
     if (b.dataset.special) { state.special = state.special === b.dataset.special ? "" : b.dataset.special; resetLimit(); renderChips(); renderGrid(); }
     else setCat(b.dataset.cat);
   });
@@ -1603,6 +1794,8 @@ function init() {
   });
 
   setupOther();
+  setupHub(); setupReview(); loadGoat();
+  document.addEventListener("click", e => { const b = e.target.closest("[data-room-pick]"); if (!b) return; setRoom(state.room === b.dataset.roomPick ? "" : b.dataset.roomPick); $("#katalogu").scrollIntoView(); });
   updateListCount();
   applyLang();
   loadAnalytics();
