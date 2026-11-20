@@ -648,7 +648,6 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
 .cl-header .hdr-tools { flex: none; margin-left: 4px; }
 .shop { padding: 22px 0 72px; }
 #katalogu { scroll-margin-top: 90px; }
-.shop .chips { margin-bottom: 4px; }
 .shop-sub { display: flex; align-items: center; justify-content: space-between; gap: 10px 16px; flex-wrap: wrap; margin: 14px 0 20px; }
 .shop-sel { display: flex; gap: 8px; }
 .shop-sel .select { min-height: 40px; height: 40px; font-size: 14px; }
@@ -730,9 +729,6 @@ body.has-obar .float-wa { opacity: 0; pointer-events: none; transform: scale(.6)
   .dr-prefs { display: block; }
   #katalogu { scroll-margin-top: 130px; }
   .shop { padding-top: 14px; }
-  .shop .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 calc(-1 * clamp(16px, 4vw, 40px)); padding: 2px clamp(16px, 4vw, 40px) 4px; }
-  .shop .chips::-webkit-scrollbar { display: none; }
-  .shop .chip { flex: none; }
   .shop-sub { margin: 10px 0 16px; }
   .obar-more { display: none; }
   .obar-send { padding: 0 18px; }
@@ -745,6 +741,67 @@ body.has-obar .float-wa { opacity: 0; pointer-events: none; transform: scale(.6)
   .obar-send { min-width: 132px; }
 }
 @media (max-width: 380px) { .cl-header .logo img { width: 128px; } .menu-toggle { width: 40px; margin-left: -8px; } }
+/* ---- search suggestions ---- */
+.hdr-search { position: relative; }
+.sugg { position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 70; background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+  box-shadow: 0 24px 50px -20px rgba(var(--shadow),.65); padding: 6px; max-height: min(70vh, 520px); overflow-y: auto; overscroll-behavior: contain; }
+.sugg-item { display: grid; grid-template-columns: 48px 1fr; gap: 12px; align-items: center; padding: 6px; border-radius: 10px; text-decoration: none; color: var(--text); }
+.sugg-item.on, .sugg-item:hover { background: var(--bg-2); }
+.sugg-th { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; display: grid; place-items: center; background: var(--soft); color: var(--icon); }
+.sugg-th img { width: 100%; height: 100%; object-fit: cover; }
+.sugg-th svg { width: 30px; height: 30px; stroke-width: 2.6; }
+.sugg-tx { min-width: 0; }
+.sugg-tx b { display: block; color: var(--heading); font: 600 14.5px/1.3 var(--font); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sugg-tx small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sugg-all { display: block; width: 100%; margin-top: 4px; padding: 12px; border: 0; border-top: 1px solid var(--line); background: none; color: var(--acc-text); font: 700 13.5px/1 var(--font); text-align: center; text-decoration: none; cursor: pointer; }
+.sugg-empty { padding: 14px 10px 8px; color: var(--muted); font-size: 14px; }
+/* ---- sticky category chips ---- */
+.shop .chips { position: sticky; top: var(--hdr-h, 70px); z-index: 30; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0; padding: 10px 0;
+  background: var(--bg); box-shadow: 0 0 0 100vmax var(--bg); clip-path: inset(0 -100vmax); transition: border-color .2s; border-bottom: 1px solid transparent; }
+.shop .chips::-webkit-scrollbar { display: none; }
+.shop .chip { flex: none; }
+.shop .chips.stuck { border-bottom-color: var(--line); }
+.shop { padding-top: 12px; }
+/* ---- "send a photo of your list" card ---- */
+.card-photo { display: grid; background: var(--soft); border: 1.5px dashed var(--acc); }
+.card-photo:hover { transform: none; }
+.cp-in { display: grid; align-content: center; justify-items: start; gap: 12px; padding: 24px 22px; }
+.cp-ico { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: var(--acc); color: var(--acc-ink); }
+.cp-ico svg { width: 28px; height: 28px; stroke-width: 1.8; }
+.card-photo b { font-size: 19px; line-height: 1.25; color: var(--heading); }
+.card-photo p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.card-photo .btn { width: 100%; margin-top: 6px; min-height: 46px; }
+/* ---- swipe photos ---- */
+.m-swipe { display: block; padding: 0; overflow: hidden; }
+.m-track { position: absolute; inset: 0; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: inherit; }
+.m-track::-webkit-scrollbar { display: none; }
+.m-slide { flex: 0 0 100%; scroll-snap-align: center; scroll-snap-stop: always; display: grid; place-items: center; }
+.m-slide img { width: 100%; height: 100%; object-fit: cover; }
+.m-swipe .code, .m-swipe .tags { z-index: 2; }
+.m-dots { position: absolute; left: 0; right: 0; bottom: 12px; z-index: 2; display: flex; justify-content: center; gap: 6px; pointer-events: none; }
+.m-dots i { width: 7px; height: 7px; border-radius: 4px; background: rgba(255,255,255,.6); box-shadow: 0 0 0 1px rgba(0,0,0,.18); transition: width .2s, background .2s; }
+.m-dots i.on { width: 18px; background: #fff; }
+@media (max-width: 760px) {
+  .gallery .thumbs { display: none; }
+  .modal-media.m-swipe { aspect-ratio: 1 / 1; min-height: 0; height: auto; }
+  .shop .chips { margin: 0 calc(-1 * clamp(16px, 4vw, 40px)); padding: 8px clamp(16px, 4vw, 40px); }
+}
+/* ---- compact cards on phones ---- */
+@media (max-width: 520px) {
+  .grid { gap: 10px; }
+  .card .specs-mini, .card .media .code { display: none; }
+  .card-body { gap: 4px; }
+  .card-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card .meta-row { margin-top: 4px; gap: 5px; }
+  .card-buy .btn-add, .stepper { min-height: 40px; height: 40px; }
+  .stepper { grid-template-columns: 40px 1fr 40px; }
+  .cp-in { padding: 16px 14px; gap: 8px; }
+  .cp-ico { width: 44px; height: 44px; border-radius: 12px; }
+  .card-photo b { font-size: 16px; }
+  .card-photo p { font-size: 13px; }
+  .card-photo .btn { min-height: 40px; padding: 0 10px; font-size: 12.5px; gap: 6px; }
+  .card-photo .btn svg { width: 16px; height: 16px; }
+}
 /* ---- smooth on phones: no accidental zoom, no sideways drift, no sticky hover ---- */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; touch-action: manipulation; }
 html, body { overflow-x: clip; }
@@ -767,7 +824,17 @@ img, svg { -webkit-user-drag: none; }
 
 :root[data-mode="light"] .drawer .logo .on-dark { display: none; }
 :root[data-mode="light"] .drawer .logo .on-light { display: block; }
-:root { --acc: var(--yellow); --acc-text: var(--kicker); --btn-r: 999px; --dr-ico: var(--tile-ico); --foot-h: var(--on-dark); }
+:root { --acc: var(--yellow); --acc-ink: var(--charcoal); --acc-text: var(--kicker); --btn-r: 999px; --dr-ico: var(--tile-ico); --foot-h: var(--on-dark); }
+.card-photo b { font-weight: 800; }
+@media (max-width: 520px) {
+  .card .media { margin: 5px 5px 0; border-radius: 8px; }
+  .card-body { padding: 9px 10px 8px; }
+  .card .cat { font-size: 9.5px; letter-spacing: .1em; }
+  .card-name { font-size: 14px; line-height: 1.25; }
+  .card .price { font-size: 15px; }
+  .card .stock { padding: 4px 7px; font-size: 9.5px; }
+  .card-buy { padding: 0 8px 8px; }
+}
 .cl-header .logo img { width: 210px; }
 .card-buy { padding: 0 16px 16px; }
 .card-buy .btn-add { background: var(--yellow); border-color: var(--yellow); color: var(--charcoal); }
@@ -792,7 +859,8 @@ img, svg { -webkit-user-drag: none; }
     <div class="search hdr-search">
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
       <label for="q" class="sr-only" data-t="search.label">Kërko produkt</label>
-      <input id="q" type="search" data-t-ph="search.ph" placeholder="Kërko produkt" autocomplete="off" enterkeyhint="search">
+      <input id="q" type="search" data-t-ph="search.ph" placeholder="Kërko produkt" autocomplete="off" enterkeyhint="search" role="combobox" aria-controls="sugg" aria-expanded="false" aria-autocomplete="list">
+      <div class="sugg" id="sugg" role="listbox" hidden></div>
     </div>
     <div class="hdr-tools">
       <button class="round-btn lang-btn" id="lang-btn" type="button" aria-label="English">EN</button>
@@ -1242,6 +1310,12 @@ const CLEAN_T = {
     "foot.teknik": "Shitje me shumicë dhe pakicë: materiale elektrike, hidraulike, ngrohje dhe ftohje.",
     "foot.shtepi": "Mobilje, ndriçim dekorativ dhe hidrosanitare, në të njëjtin dyqan në Durrës.",
     "foot.links": "Lidhje", "foot.where": "Rruga Vllazërimi, Durrës",
+    "sugg.all": "Shiko të gjitha ({n})", "sugg.none": "Nuk u gjet asgjë për këtë kërkim.",
+    "pc.h": "Keni një listë materialesh?", "pc.p": "Bëjini një foto listës dhe na e dërgoni. Ju kthejmë çmimin dhe gjendjen për çdo artikull.",
+    "pc.msg": "Përshëndetje, po ju dërgoj listën time të materialeve. Më tregoni çmimin dhe gjendjen, ju lutem.",
+    "pc.h.home": "Po rinovoni shtëpinë?", "pc.p.home": "Dërgoni një foto të hapësirës ose listën tuaj. Ju sugjerojmë produktet që i përshtaten, me çmim.",
+    "pc.msg.home": "Përshëndetje, po ju dërgoj një foto të hapësirës / listës sime. Më sugjeroni produkte dhe çmimin, ju lutem.",
+    "pc.btn": "Dërgo foton",
   },
   en: {
     "menu.open": "Open menu", "menu.close": "Close menu", "menu.cats": "Categories", "menu.rooms": "By room", "menu.sites": "Rusi En-Den",
@@ -1250,6 +1324,12 @@ const CLEAN_T = {
     "foot.teknik": "Wholesale and retail: electrical, plumbing, heating and cooling supplies.",
     "foot.shtepi": "Furniture, decorative lighting and bathrooms, in the same shop in Durrës.",
     "foot.links": "Links", "foot.where": "Rruga Vllazërimi, Durrës",
+    "sugg.all": "See all ({n})", "sugg.none": "Nothing found for this search.",
+    "pc.h": "Have a materials list?", "pc.p": "Take a photo of your list and send it to us. We reply with the price and stock for every item.",
+    "pc.msg": "Hello, I'm sending you my materials list. Could you tell me the prices and availability, please?",
+    "pc.h.home": "Renovating your home?", "pc.p.home": "Send us a photo of the space or your list. We suggest products that fit, with prices.",
+    "pc.msg.home": "Hello, I'm sending a photo of my space / list. Could you suggest products and prices, please?",
+    "pc.btn": "Send a photo",
   },
 };
 for (const l in CLEAN_T) T[l] = Object.assign({}, CLEAN_T[l], T[l] || {});
@@ -1299,8 +1379,111 @@ function renderOrderBar() {
   $("#obar-sum").textContent = CONFIG.showPrices && total > 0 ? (complete ? "" : "≈ ") + fmtPrice(total) : t("order.view");
   $("#obar-send").href = listWaLink();
 }
+/* ---- smarter search: typos and doubled letters ("kablo" finds "kabllo"), suggestions while typing ---- */
+const squash = (s) => s.replace(/(.)\1+/g, "$1");
+function lev(a, b, max) {
+  if (Math.abs(a.length - b.length) > max) return max + 1;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) {
+    const cur = [i]; let best = i;
+    for (let j = 1; j <= b.length; j++) { cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); best = Math.min(best, cur[j]); }
+    if (best > max) return max + 1;
+    prev = cur;
+  }
+  return prev[b.length];
+}
+function wordMatch(w, p) {
+  if (p._search.includes(w)) return 2;
+  if (!p._sq) { p._sq = squash(p._search); p._words = [...new Set(p._sq.split(/[^a-z0-9]+/).filter(x => x.length > 2))]; }
+  const sw = squash(w);
+  if (p._sq.includes(sw)) return 2;
+  if (sw.length < 4) return 0;
+  const tol = sw.length >= 7 ? 2 : 1;
+  return p._words.some(x => lev(sw, x.slice(0, sw.length), tol) <= tol || lev(sw, x, tol) <= tol) ? 1 : 0;
+}
+const searchMatch = (p, words) => words.every(w => wordMatch(w, p));
+let sgIdx = -1;
+function closeSugg() { const b = $("#sugg"); if (b) b.hidden = true; const q = $("#q"); if (q) { q.setAttribute("aria-expanded", "false"); q.removeAttribute("aria-activedescendant"); } sgIdx = -1; }
+function renderSugg() {
+  const box = $("#sugg"), q = $("#q"); if (!box) return;
+  const raw = state.q.trim(), words = norm(raw).split(" ").filter(Boolean);
+  if (!words.length || document.activeElement !== q) return closeSugg();
+  const first = words[0];
+  const hits = PRODUCTS.map(p => {
+    let s = 0;
+    for (const w of words) { const m = wordMatch(w, p); if (!m) return null; s += m; }
+    const nm = norm(pName(p));
+    return { p, s: s + (nm.startsWith(first) ? 2 : nm.includes(" " + first) ? 1 : 0) };
+  }).filter(Boolean).sort((a, b) => b.s - a.s);
+  sgIdx = -1;
+  box.innerHTML = hits.length
+    ? hits.slice(0, 6).map((x, i) => { const ph = photos(x.p)[0], pr = priceOf(x.p);
+        return `<a class="sugg-item" role="option" id="sg-${i}" href="#produkt-${esc(x.p.id)}"><span class="sugg-th">${ph ? `<img src="${esc(ph)}" alt="" loading="lazy">` : icon(x.p.icon)}</span><span class="sugg-tx"><b>${esc(pName(x.p))}</b><small>${esc(catName(x.p.cat))}${CONFIG.showPrices && pr !== null ? " · " + fmtPrice(pr) : ""}</small></span></a>`; }).join("")
+      + `<button class="sugg-all" type="button" data-sg-all>${esc(t("sugg.all").replace("{n}", hits.length))}</button>`
+    : `<div class="sugg-empty">${esc(t("sugg.none"))}</div><a class="sugg-all" href="${waLink(generalMsg() + " " + raw)}" target="_blank" rel="noopener">${t("ask")}</a>`;
+  box.hidden = false; q.setAttribute("aria-expanded", "true");
+}
+function moveSugg(d) {
+  const items = $$("#sugg .sugg-item"); if (!items.length) return;
+  sgIdx = (sgIdx + d + items.length + 2) % (items.length + 1) - 1;
+  items.forEach((el, i) => el.classList.toggle("on", i === sgIdx));
+  if (sgIdx >= 0) { $("#q").setAttribute("aria-activedescendant", items[sgIdx].id); items[sgIdx].scrollIntoView({ block: "nearest" }); } else $("#q").removeAttribute("aria-activedescendant");
+}
+function setupSugg() {
+  const q = $("#q"), box = $("#sugg"); if (!q || !box) return;
+  q.addEventListener("input", renderSugg);
+  q.addEventListener("focus", renderSugg);
+  q.addEventListener("blur", () => setTimeout(closeSugg, 120));
+  q.addEventListener("keydown", e => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") { if (box.hidden) renderSugg(); moveSugg(e.key === "ArrowDown" ? 1 : -1); e.preventDefault(); }
+    else if (e.key === "Escape") closeSugg();
+    else if (e.key === "Enter") {
+      const on = $("#sugg .sugg-item.on");
+      e.preventDefault(); closeSugg();
+      if (on) { location.hash = on.getAttribute("href").slice(1); q.blur(); } else { q.blur(); toShop(); }
+    }
+  });
+  box.addEventListener("pointerdown", e => e.preventDefault());       // keep the search box focused while clicking
+  box.addEventListener("click", e => {
+    if (e.target.closest("[data-sg-all]")) { closeSugg(); q.blur(); toShop(); return; }
+    if (e.target.closest(".sugg-item")) { closeSugg(); q.blur(); }
+  });
+}
+/* ---- "send a photo of your list" card in the grid ---- */
+function photoCardHtml() {
+  const h = CONFIG.site === "home" ? ".home" : "";
+  return `<article class="card card-photo"><div class="cp-in">
+    <span class="cp-ico"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+    <b>${esc(t("pc.h" + h))}</b><p>${esc(t("pc.p" + h))}</p>
+    <a class="btn btn-wa" href="${waLink(t("pc.msg" + h))}" target="_blank" rel="noopener">${waIcon}<span>${esc(t("pc.btn"))}</span></a></div></article>`;
+}
+/* ---- swipe between photos in the product view ---- */
+function galleryMedia(p, ph) {
+  if (ph.length < 2) return media(p, "modal-media", ph[current.photo]);
+  return `<div class="media modal-media m-swipe"><div class="m-track" id="m-track">${ph.map((src, i) => `<div class="m-slide"><img src="${esc(src)}" alt="${esc(pName(p))}" ${i ? 'loading="lazy"' : ""} draggable="false"></div>`).join("")}</div><span class="code">${esc(p.code)}</span>${tagsHtml(p)}<div class="m-dots" aria-hidden="true">${ph.map((_, i) => `<i class="${i === current.photo ? "on" : ""}"></i>`).join("")}</div></div>`;
+}
+function syncGallery() {
+  $$(".m-dots i").forEach((d, i) => d.classList.toggle("on", i === current.photo));
+  $$(".thumbs [data-photo]").forEach(b => b.setAttribute("aria-pressed", Number(b.dataset.photo) === current.photo));
+}
+function setupGallery() {
+  const tr = $("#m-track"); if (!tr) return;
+  tr.scrollLeft = current.photo * tr.clientWidth;
+  let raf = 0;
+  tr.addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => { const i = Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth)); if (i !== current.photo) { current.photo = i; syncGallery(); } }); }, { passive: true });
+}
+/* ---- category chips stay under the header ---- */
+function setupStickyChips() {
+  const hdr = $(".cl-header"), chips = $(".shop .chips"); if (!hdr || !chips) return;
+  const setH = () => document.documentElement.style.setProperty("--hdr-h", hdr.offsetHeight + "px");
+  setH();
+  if (window.ResizeObserver) new ResizeObserver(setH).observe(hdr); else addEventListener("resize", setH);
+  let raf = 0;
+  addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => chips.classList.toggle("stuck", chips.getBoundingClientRect().top <= hdr.offsetHeight + 1)); }, { passive: true });
+}
 function setupClean() {
   if (!$("#drawer")) return;
+  setupSugg(); setupStickyChips();
   $("#cat-menu-btn").addEventListener("click", openDrawer);
   $("#dr-close").addEventListener("click", closeDrawer);
   $("#drawer-bg").addEventListener("click", closeDrawer);
@@ -1637,7 +1820,7 @@ function filtered() {
     (!state.brand || (p.brand || "").trim() === state.brand) &&
     (state.special !== "offers" || isOffer(p)) &&
     (state.special !== "new" || isNew(p)) &&
-    words.every(w => p._search.includes(w)));
+    searchMatch(p, words));
 }
 function renderSort() {
   const sel = $("#sort");
@@ -1660,7 +1843,9 @@ function renderGrid() {
     $("#grid").innerHTML = `<div class="empty"><strong>${t("empty.title")}</strong><p>${t("empty.text")}</p>
       <a class="btn btn-wa" href="${waLink(msg)}" target="_blank" rel="noopener">${waIcon}${t("ask")}</a></div>`;
   } else {
-    $("#grid").innerHTML = list.slice(0, state.limit).map(cardHtml).join("");
+    const cards = list.slice(0, state.limit).map(cardHtml);
+    if (!state.q.trim() && cards.length >= 3) cards.splice(Math.min(4, cards.length), 0, photoCardHtml());
+    $("#grid").innerHTML = cards.join("");
   }
   const rest = list.length - Math.min(list.length, state.limit);
   $("#more-wrap").hidden = rest <= 0;
@@ -1703,7 +1888,7 @@ function renderModal() {
   const rows = [[t("code"), code], ...(p.brand ? [[t("brand"), p.brand]] : []), ...p.specs.map(s => [specLabel(s[0]), s[1]])];
   $("#m-content").innerHTML = `
     <div class="gallery">
-      ${media(p, "modal-media", ph[current.photo])}
+      ${galleryMedia(p, ph)}
       ${ph.length > 1 ? `<div class="thumbs">${ph.map((src, i) => `<button type="button" data-photo="${i}" aria-pressed="${i === current.photo}" aria-label="Foto ${i + 1}"><img src="${esc(src)}" alt=""></button>`).join("")}</div>` : ""}
     </div>
     <div class="modal-body">
@@ -1727,6 +1912,7 @@ function renderModal() {
       <div class="copy-status" id="copy-status" aria-live="polite"></div>
       ${similarHtml(p)}
     </div>`;
+  setupGallery();
 }
 function similarTo(p, n = 4) {
   const words = new Set(norm(pName(p)).split(/[^a-z0-9]+/).filter(w => w.length > 2));
@@ -1884,7 +2070,7 @@ function init() {
     const vb = e.target.closest("[data-variant]");
     if (vb) { current.v = findVariant(current.p, vb.dataset.variant); renderModal(); return; }
     const pb = e.target.closest("[data-photo]");
-    if (pb) { current.photo = Number(pb.dataset.photo); renderModal(); return; }
+    if (pb) { current.photo = Number(pb.dataset.photo); const tr = $("#m-track"); if (tr) { tr.scrollTo({ left: current.photo * tr.clientWidth, behavior: "smooth" }); syncGallery(); } else renderModal(); return; }
     const qb = e.target.closest("[data-mq]");
     if (qb) { current.qty = Math.max(1, (Number($("#m-qty").value) || 1) + Number(qb.dataset.mq)); $("#m-qty").value = current.qty; return; }
     if (e.target.closest("#m-add")) { current.qty = Math.max(1, Number($("#m-qty").value) || 1); addToList(current.p, current.v, current.qty); return; }
