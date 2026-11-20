@@ -677,7 +677,12 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
 .dr-ico svg { width: 24px; height: 24px; stroke-width: 3; }
 .dr-ico svg[viewBox="0 0 24 24"] { width: 18px; height: 18px; stroke-width: 1.8; }
 .dr-cat small { color: var(--muted); font: 500 13px/1 var(--font); font-variant-numeric: tabular-nums; }
-.dr-cat[data-dtog] { grid-template-columns: 38px 1fr 22px; }
+.dr-row { display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center; gap: 2px; }
+.dr-arrow { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--muted); cursor: pointer; }
+.dr-arrow:hover { background: var(--bg-2); color: var(--heading); }
+.dr-arrow svg { width: 20px; height: 20px; stroke-width: 2; transition: transform .25s; }
+.dr-grp.open .dr-arrow svg { transform: rotate(180deg); }
+.dr-grp.open .dr-arrow { color: var(--heading); }
 .dr-plus { width: 22px; height: 22px; position: relative; }
 .dr-plus::before, .dr-plus::after { content: ""; position: absolute; left: 5px; right: 5px; top: 50%; height: 2px; margin-top: -1px; border-radius: 1px; background: var(--muted); transition: transform .25s; }
 .dr-plus::after { transform: rotate(90deg); }
@@ -1407,7 +1412,7 @@ document.addEventListener("click", e => {
 const CLEAN_T = {
   sq: {
     "menu.open": "Hap menynë", "menu.close": "Mbyll menynë", "menu.cats": "Kategoritë", "menu.rooms": "Sipas dhomës", "menu.sites": "Rusi En-Den",
-    "menu.contact": "Kontakt", "menu.prefs": "Gjuha dhe pamja", "order.send": "Porosit në WhatsApp", "order.sendh": "Porosit<span class=\"long\"> në WhatsApp</span>", "order.view": "Shiko listën", "choose": "Zgjidh",
+    "menu.contact": "Kontakt", "menu.subs": "Nënkategoritë", "menu.prefs": "Gjuha dhe pamja", "order.send": "Porosit në WhatsApp", "order.sendh": "Porosit<span class=\"long\"> në WhatsApp</span>", "order.view": "Shiko listën", "choose": "Zgjidh",
     "dr.teknik": "Materiale elektrike, hidraulike, ngrohje-ftohje", "dr.shtepi": "Mobilje, ndriçim dekorativ, hidrosanitare", "dr.hub": "Të gjitha dyqanet tona",
     "foot.teknik": "Shitje me shumicë dhe pakicë: materiale elektrike, hidraulike, ngrohje dhe ftohje.",
     "foot.shtepi": "Mobilje, ndriçim dekorativ dhe hidrosanitare, në të njëjtin dyqan në Durrës.",
@@ -1423,7 +1428,7 @@ const CLEAN_T = {
   },
   en: {
     "menu.open": "Open menu", "menu.close": "Close menu", "menu.cats": "Categories", "menu.rooms": "By room", "menu.sites": "Rusi En-Den",
-    "menu.contact": "Contact", "menu.prefs": "Language & theme", "order.send": "Order on WhatsApp", "order.sendh": "Order<span class=\"long\"> on WhatsApp</span>", "order.view": "View list", "choose": "Choose",
+    "menu.contact": "Contact", "menu.subs": "Subcategories", "menu.prefs": "Language & theme", "order.send": "Order on WhatsApp", "order.sendh": "Order<span class=\"long\"> on WhatsApp</span>", "order.view": "View list", "choose": "Choose",
     "dr.teknik": "Electrical, plumbing, heating & cooling", "dr.shtepi": "Furniture, decorative lighting, bathrooms", "dr.hub": "All our shops",
     "foot.teknik": "Wholesale and retail: electrical, plumbing, heating and cooling supplies.",
     "foot.shtepi": "Furniture, decorative lighting and bathrooms, in the same shop in Durrës.",
@@ -1447,14 +1452,15 @@ function renderDrawer() {
   const cats = CATEGORIES.map(c => ({ id: c.id, name: catName(c.id), n: PRODUCTS.filter(p => p.cat === c.id).length, icon: c.icon })).filter(c => c.n);
   const all = '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg>';
   box.innerHTML = [{ id: "all", name: t("chip.all"), n: PRODUCTS.length }, ...cats].map(c => {
-    const subs = subsOf(c.id).map(s => ({ s, n: PRODUCTS.filter(p => p.cat === c.id && p.subcat === s.id).length })).filter(x => x.n);
+    const subs = subsOf(c.id).map(s => ({ s, n: PRODUCTS.filter(p => p.cat === c.id && p.subcat === s.id).length }));
     const on = state.cat === c.id && !state.room && !state.special;
     const ico = `<span class="dr-ico">${c.icon ? icon(c.icon) : all}</span>`;
-    if (!subs.length) return `<button type="button" class="dr-cat" data-dcat="${esc(c.id)}" aria-pressed="${on}">${ico}<span class="dr-name">${esc(c.name)}</span><small>${c.n}</small></button>`;
-    const open = drOpen.has(c.id) || on;
+    const main = `<button type="button" class="dr-cat" data-dcat="${esc(c.id)}" data-dsub="" aria-pressed="${on && !state.sub}">${ico}<span class="dr-name">${esc(c.name)}</span><small>${c.n}</small></button>`;
+    if (!subs.length) return main;
+    const open = drOpen.has(c.id) || (on && !!state.sub);
     if (open) drOpen.add(c.id);
-    return `<div class="dr-grp${open ? " open" : ""}"><button type="button" class="dr-cat" data-dtog="${esc(c.id)}" aria-expanded="${open}" aria-pressed="${on}">${ico}<span class="dr-name">${esc(c.name)}</span><span class="dr-plus" aria-hidden="true"></span></button>
-      <div class="dr-subs"><div>${[{ s: { id: "" }, n: c.n }, ...subs].map(({ s, n }) => `<button type="button" class="dr-sub" data-dcat="${esc(c.id)}" data-dsub="${esc(s.id)}" aria-pressed="${on && state.sub === s.id}"><span>${s.id ? esc((isEn() && s.name_en) || s.name) : esc(t("all.of")) + ": " + esc(c.name)}</span><small>${n}</small></button>`).join("")}</div></div></div>`;
+    return `<div class="dr-grp${open ? " open" : ""}"><div class="dr-row">${main}<button type="button" class="dr-arrow" data-dtog="${esc(c.id)}" aria-expanded="${open}" aria-label="${esc(t("menu.subs"))}: ${esc(c.name)}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+      <div class="dr-subs"><div>${subs.map(({ s, n }) => `<button type="button" class="dr-sub" data-dcat="${esc(c.id)}" data-dsub="${esc(s.id)}" aria-pressed="${on && state.sub === s.id}"><span>${esc((isEn() && s.name_en) || s.name)}</span><small>${n}</small></button>`).join("")}</div></div></div>`;
   }).join("");
   const rw = $("#dr-rooms-wrap");
   if (rw && typeof ROOMS !== "undefined") {
@@ -1732,7 +1738,7 @@ function setupClean() {
   $("#drawer").addEventListener("click", e => {
     const c = e.target.closest("[data-dcat]"), r = e.target.closest("[data-droom]");
     const tg = e.target.closest("[data-dtog]");
-    if (tg) { const g = tg.parentElement, open = !g.classList.contains("open"); g.classList.toggle("open", open); tg.setAttribute("aria-expanded", open); if (open) drOpen.add(tg.dataset.dtog); else drOpen.delete(tg.dataset.dtog); return; }
+    if (tg) { const g = tg.closest(".dr-grp"), open = !g.classList.contains("open"); g.classList.toggle("open", open); tg.setAttribute("aria-expanded", open); if (open) drOpen.add(tg.dataset.dtog); else drOpen.delete(tg.dataset.dtog); return; }
     if (c) { state.special = ""; state.room = ""; setCat(c.dataset.dcat, c.dataset.dsub || ""); renderRooms(); closeDrawer(); toShop(); }
     else if (r) { state.special = ""; state.cat = "all"; setRoom(r.dataset.droom); closeDrawer(); toShop(); }
     else if (e.target.closest("a")) closeDrawer();
