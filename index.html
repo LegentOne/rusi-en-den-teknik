@@ -746,6 +746,8 @@ body.has-obar .float-wa { opacity: 0; pointer-events: none; transform: scale(.6)
 }
 @media (max-width: 380px) { .cl-header .logo img { width: 128px; } .menu-toggle { width: 40px; margin-left: -8px; } }
 
+:root[data-mode="light"] .drawer .logo .on-dark { display: none; }
+:root[data-mode="light"] .drawer .logo .on-light { display: block; }
 :root { --acc: var(--yellow); --acc-text: var(--kicker); --btn-r: 999px; --dr-ico: var(--tile-ico); --foot-h: var(--on-dark); }
 .cl-header .logo img { width: 210px; }
 .card-buy { padding: 0 16px 16px; }
