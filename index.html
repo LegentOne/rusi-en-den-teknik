@@ -2,7 +2,7 @@
 <html lang="sq">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rusi En-Den Teknik · Katalogu</title>
 <meta name="description" content="Rusi En-Den, Durrës. Materiale elektrike, hidraulike, hidrosanitare, ndriçim dhe ngrohje-ftohje. Shitje me shumicë dhe pakicë.">
 <meta property="og:type" content="website">
@@ -745,6 +745,25 @@ body.has-obar .float-wa { opacity: 0; pointer-events: none; transform: scale(.6)
   .obar-send { min-width: 132px; }
 }
 @media (max-width: 380px) { .cl-header .logo img { width: 128px; } .menu-toggle { width: 40px; margin-left: -8px; } }
+/* ---- smooth on phones: no accidental zoom, no sideways drift, no sticky hover ---- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; touch-action: manipulation; }
+html, body { overflow-x: clip; }
+a, button, label, select, summary, .chip, .card { -webkit-tap-highlight-color: transparent; }
+button, .chip, .btn, .dr-cat, .stepper, .obar-info { user-select: none; -webkit-user-select: none; }
+img, svg { -webkit-user-drag: none; }
+.chips, .drawer, .dr-body, .ldrawer, .ldrawer-body, .modal, .modal-panel { overscroll-behavior: contain; }
+@media (hover: none) {
+  .card:hover, .tile:hover { transform: none; box-shadow: none; border-color: var(--line); }
+  .card:hover .media img, .card:hover .media svg.ico { transform: none; }
+  .menu-toggle:hover, .dr-cat:hover, .dr-link:hover, .obar-info:hover, .stepper button:hover { background: none; }
+  .dr-cat[aria-pressed="true"] { background: var(--soft); }
+  .card:active { transform: scale(.985); transition: transform .08s; }
+}
+@media (max-width: 760px) {
+  input, select, textarea { font-size: 16px !important; }
+  .cl-header, .obar { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--bg); }
+  .card { content-visibility: auto; contain-intrinsic-size: auto 380px; }
+}
 
 :root[data-mode="light"] .drawer .logo .on-dark { display: none; }
 :root[data-mode="light"] .drawer .logo .on-light { display: block; }
