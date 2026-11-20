@@ -895,6 +895,9 @@ body.has-obar .float-wa { opacity: 0; pointer-events: none; transform: scale(.6)
   .card-photo .btn { min-height: 40px; padding: 0 10px; font-size: 12.5px; gap: 6px; }
   .card-photo .btn svg { width: 16px; height: 16px; }
 }
+html:has(.drawer.open), html:has(.filters.open), html:has(.modal.open), html:has(.ldrawer.open) { overflow: hidden; }
+html:has(.drawer.open) body, html:has(.filters.open) body, html:has(.modal.open) body, html:has(.ldrawer.open) body { overflow: hidden; }
+.drawer-bg, .ldrawer-bg, .modal-backdrop { touch-action: none; }
 /* ---- smooth on phones: no accidental zoom, no sideways drift, no sticky hover ---- */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; touch-action: manipulation; }
 html, body { overflow-x: clip; }
@@ -1730,7 +1733,26 @@ function setupStickyChips() {
   let raf = 0;
   addEventListener("scroll", () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => chips.classList.toggle("stuck", chips.getBoundingClientRect().top <= hdr.offsetHeight + 1)); }, { passive: true });
 }
+/* ---- while a menu / filters / product / list is open, only that panel scrolls (iPhone included) ---- */
+const OVERLAY_OPEN = ".drawer.open, .filters.open, .modal.open, .ldrawer.open";
+const SCROLLERS = ".flt-body, .dr-body, .ldrawer-body, .modal-panel, .sugg";
+function setupScrollLock() {
+  let sy = 0, sx = 0;
+  document.addEventListener("touchstart", e => { const t = e.touches[0]; sy = t.clientY; sx = t.clientX; }, { passive: true });
+  document.addEventListener("touchmove", e => {
+    if (!document.querySelector(OVERLAY_OPEN) || e.touches.length > 1) return;
+    const t = e.touches[0], dy = t.clientY - sy, dx = t.clientX - sx;
+    if (e.target.closest('input[type="range"]')) return;                               // price slider
+    if (Math.abs(dx) > Math.abs(dy) && e.target.closest(".m-track, .thumbs, .vchips")) return;   // swiping photos
+    const sc = e.target.closest(SCROLLERS);
+    if (!sc || !sc.closest(OVERLAY_OPEN) && !sc.matches(".modal-panel")) { e.preventDefault(); return; }
+    const canScroll = sc.scrollHeight > sc.clientHeight + 1;
+    const atTop = sc.scrollTop <= 0, atBottom = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 1;
+    if (!canScroll || (atTop && dy > 0) || (atBottom && dy < 0)) e.preventDefault();
+  }, { passive: false });
+}
 function setupClean() {
+  setupScrollLock();
   if (!$("#drawer")) return;
   setupSugg(); setupStickyChips(); setupFilters();
   $("#cat-menu-btn").addEventListener("click", openDrawer);
