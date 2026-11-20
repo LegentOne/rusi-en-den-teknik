@@ -1,6 +1,6 @@
 /* Krijuar nga paneli i administrimit (Rusi En-Den Admin) për Rusi En-Den Teknik. Mos e ndryshoni me dorë. */
 window.RUSI_DATA = {
- "updatedAt": "2026-11-20T13:34:08.374Z",
+ "updatedAt": "2026-11-20T15:28:22.662Z",
  "settings": {
   "whatsappNumber": "355676661101",
   "phoneDisplay": "+355 67 666 1101",
@@ -42,7 +42,34 @@ window.RUSI_DATA = {
    "icon": "bolt",
    "sub": "Kabllo, priza, çelësa, automatë",
    "name_en": "Electrical",
-   "sub_en": "Cables, sockets, switches, breakers"
+   "sub_en": "Cables, sockets, switches, breakers",
+   "subs": [
+    {
+     "id": "kabllo",
+     "name": "Kabllo",
+     "name_en": ""
+    },
+    {
+     "id": "celesa-priza",
+     "name": "Çelësa & priza",
+     "name_en": ""
+    },
+    {
+     "id": "automate-mbrojtje",
+     "name": "Automatë & mbrojtje",
+     "name_en": ""
+    },
+    {
+     "id": "kuti-panele",
+     "name": "Kuti & panele",
+     "name_en": ""
+    },
+    {
+     "id": "zgjatues-adaptore",
+     "name": "Zgjatues & adaptorë",
+     "name_en": ""
+    }
+   ]
   },
   {
    "id": "hidraulike",
@@ -50,7 +77,29 @@ window.RUSI_DATA = {
    "icon": "valve",
    "sub": "Tuba PPR e PVC, valvola, pompa",
    "name_en": "Plumbing",
-   "sub_en": "PPR and PVC pipes, valves, pumps"
+   "sub_en": "PPR and PVC pipes, valves, pumps",
+   "subs": [
+    {
+     "id": "tuba",
+     "name": "Tuba",
+     "name_en": ""
+    },
+    {
+     "id": "valvola",
+     "name": "Valvola",
+     "name_en": ""
+    },
+    {
+     "id": "rakorderi",
+     "name": "Rakorderi",
+     "name_en": ""
+    },
+    {
+     "id": "pompa-uji",
+     "name": "Pompa uji",
+     "name_en": ""
+    }
+   ]
   },
   {
    "id": "hidrosanitare",
@@ -58,7 +107,29 @@ window.RUSI_DATA = {
    "icon": "faucet",
    "sub": "Bateri, dushe, WC, lavamanë",
    "name_en": "Sanitary ware",
-   "sub_en": "Taps, showers, toilets, basins"
+   "sub_en": "Taps, showers, toilets, basins",
+   "subs": [
+    {
+     "id": "bateri",
+     "name": "Bateri",
+     "name_en": ""
+    },
+    {
+     "id": "dushe",
+     "name": "Dushe",
+     "name_en": ""
+    },
+    {
+     "id": "wc-rezervuare",
+     "name": "WC & rezervuarë",
+     "name_en": ""
+    },
+    {
+     "id": "lavamane",
+     "name": "Lavamanë",
+     "name_en": ""
+    }
+   ]
   },
   {
    "id": "ndricim",
@@ -66,7 +137,34 @@ window.RUSI_DATA = {
    "icon": "bulb",
    "sub": "Llamba LED, panele, projektorë",
    "name_en": "Lighting",
-   "sub_en": "LED bulbs, panels, floodlights"
+   "sub_en": "LED bulbs, panels, floodlights",
+   "subs": [
+    {
+     "id": "llamba",
+     "name": "Llamba",
+     "name_en": ""
+    },
+    {
+     "id": "panele-led",
+     "name": "Panele LED",
+     "name_en": ""
+    },
+    {
+     "id": "projektore",
+     "name": "Projektorë",
+     "name_en": ""
+    },
+    {
+     "id": "shirita-led",
+     "name": "Shirita LED",
+     "name_en": ""
+    },
+    {
+     "id": "plafoniere",
+     "name": "Plafonierë",
+     "name_en": ""
+    }
+   ]
   },
   {
    "id": "ngrohje-ftohje",
@@ -74,7 +172,34 @@ window.RUSI_DATA = {
    "icon": "ac",
    "sub": "Kondicionerë, radiatorë, bojlerë",
    "name_en": "Heating & cooling",
-   "sub_en": "Air conditioners, radiators, water heaters"
+   "sub_en": "Air conditioners, radiators, water heaters",
+   "subs": [
+    {
+     "id": "kondicionere",
+     "name": "Kondicionerë",
+     "name_en": ""
+    },
+    {
+     "id": "radiatore",
+     "name": "Radiatorë",
+     "name_en": ""
+    },
+    {
+     "id": "bojlere",
+     "name": "Bojlerë",
+     "name_en": ""
+    },
+    {
+     "id": "aspiratore",
+     "name": "Aspiratorë",
+     "name_en": ""
+    },
+    {
+     "id": "termostate",
+     "name": "Termostate",
+     "name_en": ""
+    }
+   ]
   }
  ],
  "products": [
@@ -115,7 +240,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "NYM copper cable 3×2.5 mm²",
    "desc_en": "For indoor wiring, socket circuits and power lines.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "kabllo"
   },
   {
    "id": "celes-modular",
@@ -154,7 +280,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Modular light switch",
    "desc_en": "Single switch for standard wall boxes, with frame.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "celesa-priza"
   },
   {
    "id": "prize-schuko-16a",
@@ -193,7 +320,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Schuko socket with earth, 16 A",
    "desc_en": "Standard socket for household appliances, with earth contact.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "celesa-priza"
   },
   {
    "id": "automat-1p-c16",
@@ -236,7 +364,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Circuit breaker 1P C16",
    "desc_en": "Protects each circuit against overload and short circuit.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "automate-mbrojtje"
   },
   {
    "id": "kuti-shperndarese-12",
@@ -275,7 +404,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Consumer unit, 12 modules",
    "desc_en": "Distribution box for your breakers, surface or flush mounted.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "kuti-panele"
   },
   {
    "id": "zgjatues-4-priza",
@@ -310,7 +440,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "4-way extension lead with switch",
    "desc_en": "3 m cable with illuminated on/off switch.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "zgjatues-adaptore"
   },
   {
    "id": "tub-ppr-25",
@@ -367,7 +498,8 @@ window.RUSI_DATA = {
    ],
    "name_en": "PPR pipe PN20",
    "desc_en": "Pipe for hot and cold water, joined by heat welding.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "tuba"
   },
   {
    "id": "tub-pvc-110",
@@ -406,7 +538,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "PVC drain pipe Ø110 mm",
    "desc_en": "For sewage and bathroom or kitchen drainage.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "tuba"
   },
   {
    "id": "valvol-sferike-12",
@@ -445,7 +578,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Ball valve 1/2\" brass",
    "desc_en": "Shut-off valve for water lines, with butterfly handle.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "valvola"
   },
   {
    "id": "rakorderi-ppr",
@@ -480,7 +614,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "PPR fittings (elbows, tees, couplings)",
    "desc_en": "Connectors for PPR networks in all diameters.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "rakorderi"
   },
   {
    "id": "pompe-periferike",
@@ -519,7 +654,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Peripheral water pump 0.5 kW",
    "desc_en": "Boosts water pressure at home and from tanks.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "pompa-uji"
   },
   {
    "id": "bateri-lavamani",
@@ -558,7 +694,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Single-lever basin mixer",
    "desc_en": "Mixer tap for basins, with ceramic cartridge.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "bateri"
   },
   {
    "id": "set-dushi",
@@ -593,7 +730,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Shower set with rail",
    "desc_en": "Rail, hand shower and flexible hose, ready to fit.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "dushe"
   },
   {
    "id": "wc-me-rezervuar",
@@ -632,7 +770,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Toilet with cistern",
    "desc_en": "Ceramic toilet with cistern and soft-close seat.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "wc-rezervuare"
   },
   {
    "id": "lavaman-60",
@@ -667,7 +806,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Ceramic basin 60 cm",
    "desc_en": "Pedestal or vanity basin, with tap hole.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "lavamane"
   },
   {
    "id": "llambe-led-e27-12w",
@@ -706,7 +846,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "LED bulb E27 12 W",
    "desc_en": "Replaces a classic 100 W bulb using far less power.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "llamba"
   },
   {
    "id": "panel-led-60x60",
@@ -745,7 +886,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "LED panel 60×60 cm 40 W",
    "desc_en": "For suspended ceilings, offices and shops.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "panele-led"
   },
   {
    "id": "projektor-led-50w",
@@ -784,7 +926,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "LED floodlight 50 W IP65",
    "desc_en": "Outdoor lighting for yards, façades and building sites.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "projektore"
   },
   {
    "id": "shirit-led-5m",
@@ -823,7 +966,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "LED strip 5 m, 12 V",
    "desc_en": "Decorative lighting for kitchens, ceilings and shelves.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "shirita-led"
   },
   {
    "id": "plafoniere-led-18w",
@@ -862,7 +1006,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Round LED ceiling light 18 W",
    "desc_en": "Ceiling light for hallways, bathrooms and rooms.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "plafoniere"
   },
   {
    "id": "kondicioner-12000-btu",
@@ -901,7 +1046,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Inverter air conditioner 12000 BTU",
    "desc_en": "Low-consumption heating and cooling for rooms up to 35 m².",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "kondicionere"
   },
   {
    "id": "radiator-alumini-600",
@@ -936,7 +1082,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Aluminium radiator 600 mm",
    "desc_en": "Sold per section, built to the length you need.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "radiatore"
   },
   {
    "id": "bojler-elektrik-80l",
@@ -975,7 +1122,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Electric water heater 80 L",
    "desc_en": "Vertical water heater with adjustable thermostat.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "bojlere"
   },
   {
    "id": "aspirator-banje-100",
@@ -1010,7 +1158,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Bathroom extractor fan Ø100 mm",
    "desc_en": "Removes moisture and odours from bathrooms and kitchens.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "aspiratore"
   },
   {
    "id": "termostat-dixhital",
@@ -1045,7 +1194,8 @@ window.RUSI_DATA = {
    "variants": [],
    "name_en": "Digital room thermostat",
    "desc_en": "Controls your boiler or heating system on a schedule.",
-   "added": "2026-11-18"
+   "added": "2026-11-18",
+   "subcat": "termostate"
   }
  ]
 };
