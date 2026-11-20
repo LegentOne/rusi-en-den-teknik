@@ -677,8 +677,10 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
 .dr-ico svg { width: 24px; height: 24px; stroke-width: 3; }
 .dr-ico svg[viewBox="0 0 24 24"] { width: 18px; height: 18px; stroke-width: 1.8; }
 .dr-cat small { color: var(--muted); font: 500 13px/1 var(--font); font-variant-numeric: tabular-nums; }
-.dr-row { display: grid; grid-template-columns: minmax(0, 1fr) 44px; align-items: center; gap: 2px; }
-.dr-arrow { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--muted); cursor: pointer; }
+.dr-row { display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: center; gap: 2px; }
+.dr-row .dr-cat { padding-left: 4px; }
+.dr-arrow-sp { width: 40px; }
+.dr-arrow { width: 40px; height: 48px; margin-left: -4px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 12px; background: none; color: var(--muted); cursor: pointer; }
 .dr-arrow:hover { background: var(--bg-2); color: var(--heading); }
 .dr-arrow svg { width: 20px; height: 20px; stroke-width: 2; transition: transform .25s; }
 .dr-grp.open .dr-arrow svg { transform: rotate(180deg); }
@@ -688,7 +690,7 @@ html.mode-anim, html.mode-anim *, html.mode-anim *::before, html.mode-anim *::af
 .dr-plus::after { transform: rotate(90deg); }
 .dr-grp.open .dr-plus::after { transform: rotate(0deg); }
 .dr-subs { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .25s ease; }
-.dr-subs > div { overflow: hidden; display: grid; gap: 2px; padding-left: 50px; }
+.dr-subs > div { overflow: hidden; display: grid; gap: 2px; padding-left: 84px; }
 .dr-grp.open .dr-subs { grid-template-rows: 1fr; }
 .dr-grp.open .dr-subs > div { padding-top: 2px; padding-bottom: 6px; }
 .dr-sub { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; padding: 9px 10px; border: 0; border-radius: 10px; background: none; color: var(--text); font: 500 14.5px/1.3 var(--font); text-align: left; cursor: pointer; }
@@ -1456,10 +1458,10 @@ function renderDrawer() {
     const on = state.cat === c.id && !state.room && !state.special;
     const ico = `<span class="dr-ico">${c.icon ? icon(c.icon) : all}</span>`;
     const main = `<button type="button" class="dr-cat" data-dcat="${esc(c.id)}" data-dsub="" aria-pressed="${on && !state.sub}">${ico}<span class="dr-name">${esc(c.name)}</span><small>${c.n}</small></button>`;
-    if (!subs.length) return main;
+    if (!subs.length) return `<div class="dr-row"><span class="dr-arrow-sp" aria-hidden="true"></span>${main}</div>`;
     const open = drOpen.has(c.id) || (on && !!state.sub);
     if (open) drOpen.add(c.id);
-    return `<div class="dr-grp${open ? " open" : ""}"><div class="dr-row">${main}<button type="button" class="dr-arrow" data-dtog="${esc(c.id)}" aria-expanded="${open}" aria-label="${esc(t("menu.subs"))}: ${esc(c.name)}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></div>
+    return `<div class="dr-grp${open ? " open" : ""}"><div class="dr-row"><button type="button" class="dr-arrow" data-dtog="${esc(c.id)}" aria-expanded="${open}" aria-label="${esc(t("menu.subs"))}: ${esc(c.name)}"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>${main}</div>
       <div class="dr-subs"><div>${subs.map(({ s, n }) => `<button type="button" class="dr-sub" data-dcat="${esc(c.id)}" data-dsub="${esc(s.id)}" aria-pressed="${on && state.sub === s.id}"><span>${esc((isEn() && s.name_en) || s.name)}</span><small>${n}</small></button>`).join("")}</div></div></div>`;
   }).join("");
   const rw = $("#dr-rooms-wrap");
